@@ -6,12 +6,20 @@ const auth = require("../middlewares/auth");
 
 require("dotenv").config();
 
-const { DBURL, DBNAME } = process.env;
+const { DBURL } = process.env;
+mongoose.connect(process.env.DBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    
+  })
+  .then(()=>console.log('Connected to db'))
+  .catch((err)=> console.log("DB connection error",err));
+  
 
-mongoose.connect(`${DBURL}/${DBNAME}`, (err) => {
-    if (err) throw err;
-    console.log("MongoDB connected successfully");
-});
+// mongoose.connect(`${DBURL}/${DBNAME}`, (err) => {
+//     if (err) throw err;
+//     console.log("MongoDB connected successfully");
+// });
 
 /* GET home page. */
 router.get("/", function(_, res) {
